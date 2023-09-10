@@ -1,20 +1,20 @@
-def initial_state():
-    return (8, 0, 0)
-
 def is_goal(s):
-    a, b, c = s
-    return a == 4 and b == 4
+    x, y, z = s
+    return x == 4 and y == 4
 
 def successors(s):
-    a, b, c = s
+    x, y, z = s
     successor_states = []
+
+    # Define the pour operation from one bottle to another
     def pour(source, destination):
-        nonlocal a, b, c
-        if s[source] > 0 and s[destination] < destination_capacity[destination]:
-            amount_to_pour = min(s[source], destination_capacity[destination] - s[destination])
-            s[source] -= amount_to_pour
-            s[destination] += amount_to_pour
-            successor_states.append(tuple(s))
+        nonlocal x, y, z
+        state_list = list(s)  # Convert the tuple to a list for modification
+        if state_list[source] > 0 and state_list[destination] < destination_capacity[destination]:
+            amount_to_pour = min(state_list[source], destination_capacity[destination] - state_list[destination])
+            state_list[source] -= amount_to_pour
+            state_list[destination] += amount_to_pour
+            successor_states.append(tuple(state_list))  # Convert the list back to a tuple
 
     # Define the capacities of the bottles
     destination_capacity = [8, 5, 3]
@@ -34,8 +34,3 @@ initial = initial_state()
 print("Initial state:", initial)
 print("Is goal state:", is_goal(initial))
 print("Successor states:", successors(initial))
-
-
-
-
-
